@@ -51,3 +51,58 @@ Parameters can be modified in `parm.h`:
 - `STAGE3_MEMORY_BYTES`: Memory allocation for Stage 3
 - `SUBFLOW_WINDOWS`: Number of windows for stability detection
 - `STABLE_THRESHOLD`: Variance threshold for stability
+
+## Baselines
+
+This project includes two baseline algorithms in the `baselines` directory for comparison:
+
+### SteadySketch
+
+**Location**: `baselines/SteadySketch/`
+
+SteadySketch is a two-stage data structure for detecting stable flows in network traffic. It consists of:
+- **Filter**: A filter array for preliminary candidate selection
+- **Sketch**: A counting sketch for frequency estimation
+
+**Building**:
+```bash
+cd baselines/SteadySketch
+mkdir -p build && cd build
+cmake ..
+make
+```
+
+**Usage**:
+1. Prepare the data file (binary format with flow ID and timestamp)
+2. Modify `Data.open("", ios::binary)` in `main.cpp` to point to your data file
+3. Adjust parameters in `parm.h` if needed
+4. Run the compiled executable
+
+### XSketch
+
+**Location**: `baselines/XSKetch/`
+
+XSketch is a two-stage Sketch data structure for network traffic anomaly detection:
+- **Stage1 (TowerSketch)**: Quickly records frequency information of each flow using a multi-level bit-encoded counter array
+- **Stage2 (Hash Bucket)**: Provides precise detection using linear regression to identify stable flows
+
+**Building**:
+```bash
+cd baselines/XSKetch
+mkdir -p build && cd build
+cmake ..
+make
+```
+
+**Usage**:
+```bash
+./XSketch <data_file_path> <memory_size(MB)> <run_length>
+```
+
+Parameters can be configured in `Param.h`:
+- `var_thres_p`: Variance threshold for stability detection
+- `error_thres_p`: Error threshold for linear regression residual
+- `stage_ratio_p`: Memory ratio for Stage1
+- `bucket_size_p`: Number of slots per hash bucket
+- `S_p`: Number of windows for Stage1
+- `potential_thres_p`: Potential threshold for flow replacement

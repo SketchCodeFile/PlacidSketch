@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <cstring>
 
-constexpr int KEY_LEN = 8;
+constexpr int KEY_LEN = 16;
 constexpr int KEY_LEN1 = 64;
 
 constexpr size_t STAGE1_2_TOTAL_MEMORY_BYTES = 600ull * 1024;
