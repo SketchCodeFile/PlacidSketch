@@ -53,7 +53,7 @@ namespace steady {
     constexpr int TopK = 100000;
     constexpr unsigned int DefaultHashSeed = 0x100;
  
-    inline size_t steady_filter_rolling_sketch_total_memory_kb = 600;
+    inline size_t steady_filter_rolling_sketch_total_memory_kb = 300;
  
     inline double r = 0.8;
    
@@ -64,7 +64,7 @@ namespace steady {
         return steady_filter_rolling_sketch_total_memory_kb - get_steady_filter_memory_kb(); 
     }
     
-    constexpr size_t uss_memory_kb = 2000;  // USS (HeavyHitter) 内存限制（KB）
+    constexpr size_t uss_memory_kb = 240;  
     
     inline int get_memory_size() { 
         return static_cast<int>(steady_filter_rolling_sketch_total_memory_kb); 
@@ -73,11 +73,11 @@ namespace steady {
 }  // namespace steady
 
 namespace xsketch {
-    constexpr int K = 2;                   
+    constexpr int K = 0;                   
     constexpr int bucket_size_p = 4;        
     constexpr double error_thres_p = 0.1;   
-    constexpr double potential_thres_p = 0.0001;  
-    constexpr int window_size = 1;         
+    constexpr double potential_thres_p = 0.01;  
+    constexpr int window_size = 200;         
 }  // namespace xsketch
 
 

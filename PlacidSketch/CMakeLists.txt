@@ -13,6 +13,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # Find all source files
 file(GLOB_RECURSE SKETCH_SOURCES 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/baselines/*.cpp 
 )
 
 # Create executable
@@ -21,7 +22,9 @@ add_executable(placidsketch ${SKETCH_SOURCES})
 # Include directories
 target_include_directories(placidsketch PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/XSketch
+    ${CMAKE_CURRENT_SOURCE_DIR}/baselines          
+    ${CMAKE_CURRENT_SOURCE_DIR}/baselines/XSketch 
+    ${CMAKE_CURRENT_SOURCE_DIR}/baselines/SteadySketch 
 )
 
 # Compiler options

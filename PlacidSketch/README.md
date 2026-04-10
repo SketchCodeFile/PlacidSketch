@@ -38,6 +38,15 @@ PlacidSketch/
 ├── README.md                # This file
 ├── LICENSE                  # License file
 ├── .gitignore               # Git ignore rules
+├── baselines/                
+│   ├── SteadySketch.h      # SteadySketch header
+│   ├── SteadySketch.cpp    # SteadySketch implementation
+│   └── XSketch/            # XSketch algorithm
+│       ├── XSketch.h      # XSketch header
+│       ├── Param.h        # XSketch parameters (integrated into parm.h)
+│       ├── CorrectDetector.h  # Regression functions
+│       └── Common/
+│           └── hash.h     # Hash utilities             
 ├── include/                 # Public headers
 │   ├── parm.h              # Global parameters (XSketch/Param.h integrated)
 │   ├── stage1.h            # Stage1 header
@@ -46,20 +55,12 @@ PlacidSketch/
 │   ├── stage2.cpp          # Stage2 implementation
 │   ├── stage3.h            # Stage3 header
 │   ├── stage3.cpp          # Stage3 implementation
-│   ├── SteadySketch.h      # SteadySketch header
-│   ├── SteadySketch.cpp    # SteadySketch implementation
 │   ├── ground_truth_baseline.h
 │   ├── ground_truth_baseline.cpp
 │   └── MurmurHash3.h       # Hash functions
 ├── src/                     # Source files
-│   └── main.cpp            # Main program
-└── XSketch/                 # XSketch algorithm
-    ├── XSketch.h           # XSketch header
-    ├── Param.h             # XSketch parameters (integrated into parm.h)
-    ├── CorrectDetector.h   # Regression functions
-    └── Common/
-        └── hash.h          # Hash utilities
-```
+    └── main.cpp            # Main program
+
 
 ## Building
 
