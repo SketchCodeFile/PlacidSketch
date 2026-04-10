@@ -39,27 +39,26 @@ PlacidSketch/
 ├── LICENSE                  # License file
 ├── .gitignore               # Git ignore rules
 ├── include/                 # Public headers
-│   ├── para.h               # Global parameters
-│   ├── stage1.h             # Stage1 header
-│   ├── stage2.h             # Stage2 header
-│   ├── stage3.h             # Stage3 header
-│   ├── SteadySketch.h       # SteadySketch header
+│   ├── parm.h              # Global parameters (XSketch/Param.h integrated)
+│   ├── stage1.h            # Stage1 header
+│   ├── stage1.cpp          # Stage1 implementation
+│   ├── stage2.h            # Stage2 header
+│   ├── stage2.cpp          # Stage2 implementation
+│   ├── stage3.h            # Stage3 header
+│   ├── stage3.cpp          # Stage3 implementation
+│   ├── SteadySketch.h      # SteadySketch header
+│   ├── SteadySketch.cpp    # SteadySketch implementation
 │   ├── ground_truth_baseline.h
-│   └── MurmurHash3.h        # Hash functions
-├── src/                     # Source files
-│   ├── main.cpp             # Main program
-│   ├── stage1.cpp           # Stage1 implementation
-│   ├── stage2.cpp           # Stage2 implementation
-│   ├── stage3.cpp           # Stage3 implementation
-│   ├── SteadySketch.cpp     # SteadySketch implementation
 │   ├── ground_truth_baseline.cpp
-│   └── MurmurHash3.cpp      # Hash implementation
+│   └── MurmurHash3.h       # Hash functions
+├── src/                     # Source files
+│   └── main.cpp            # Main program
 └── XSketch/                 # XSketch algorithm
-    ├── XSketch.h            # XSketch header
-    ├── Param.h              # XSketch parameters
-    ├── CorrectDetector.h    # Regression functions
+    ├── XSketch.h           # XSketch header
+    ├── Param.h             # XSketch parameters (integrated into parm.h)
+    ├── CorrectDetector.h   # Regression functions
     └── Common/
-        └── hash.h           # Hash utilities
+        └── hash.h          # Hash utilities
 ```
 
 ## Building
@@ -115,22 +114,46 @@ After building, run:
 ./bin/placidsketch
 ```
 
-**Note**: You may need to modify the data path in `main.cpp` to point to your dataset location.
+**Note**: You may need to modify the data path in `src/main.cpp` to point to your dataset location.
 
 ### Configuration
 
-Key parameters can be modified in `include/para.h`:
+Key parameters can be modified in `include/parm.h`:
 
 ```cpp
-// Memory configuration
-inline size_t STAGE1_STAGE2_TOTAL_MEMORY_BYTES = 600 * 1024;  // Total memory
+// ============== PlacidSketch Memory Configuration ==============
+// Stage1 and Stage2 shared memory configuration
+inline size_t STAGE1_STAGE2_TOTAL_MEMORY_BYTES = 600 * 1024;
 
-// Stage ratio (Stage1 memory / Total memory)
+// Stage1 memory ratio (Stage1 / Total)
 inline double r = 0.2;
 
-// Algorithm parameters
+// ============== Algorithm Parameters ==============
 constexpr int SUBFLOW_WINDOWS = 5;        // Sliding window size
 constexpr float STABLE_THRESHOLD = 5.0f;  // Variance threshold
+constexpr int P = 400;                    // Max merge count
+constexpr int Q = 40;                     // Min subflow threshold
+
+// ============== SteadySketch Parameters ==============
+namespace steady {
+    constexpr int _Period = 5;
+    constexpr int StableThreshold = 5;
+    constexpr int SmoothThreshold = 200;
+    constexpr int ElementPerBucket = 4;
+    constexpr int _SketchArray = 3;
+    constexpr int _FilterArray = 2;
+    constexpr int _NumOfHeavyHitterBuckets = 2000;
+    constexpr int TopK = 100000;
+}
+
+// ============== XSketch Parameters ==============
+namespace xsketch {
+    constexpr int K = 2;                    // Polynomial fitting order
+    constexpr int bucket_size_p = 4;        // Stage2 bucket size
+    constexpr double error_thres_p = 0.1;  // Error threshold
+    constexpr double potential_thres_p = 0.0001;  // Potential flow threshold
+    constexpr int window_size = 1;
+}
 ```
 
 ## Algorithm Comparison Results
