@@ -1,9 +1,3 @@
-/**
- * @file stage3.h
- * @brief Stage3: 稳定子流合并器
- * 
- * Stage3 将连续的稳定子流合并成完整的稳定流报告
- */
 
 #ifndef STAGE3_H
 #define STAGE3_H
@@ -20,7 +14,6 @@
 #include <string>
 #include <vector>
 
-// 统计信息结构
 struct Statistics {
     float mean = 0.0f;
     float variance = 0.0f;
@@ -28,7 +21,6 @@ struct Statistics {
     Statistics(float m, float v) : mean(m), variance(v) {}
 };
 
-// Stage3Cell: 存储一个稳定流的合并信息
 struct Stage3Cell {
     char ID[KEY_LEN]{};
     uint16_t window = 0;
@@ -44,7 +36,6 @@ struct Stage3Cell {
     }
 };
 
-// 稳定流记录
 struct StableFlowRecord {
     std::string fingerprint;
     uint32_t startWindow;
@@ -54,7 +45,6 @@ struct StableFlowRecord {
     float mean;
 };
 
-// Stage3Merger: 由 l 个桶组成的哈希表，用于合并稳定子流
 class Stage3Merger {
 private:
     std::vector<std::vector<Stage3Cell>> buckets;
