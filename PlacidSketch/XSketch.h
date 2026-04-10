@@ -18,7 +18,7 @@ const int counter_bit[] = {
 };
 
 namespace xsketch {
-    // Report_Slot 结构体用于报告稳定流
+
     template<typename ID_TYPE>
     struct Report_Slot {
         ID_TYPE id;
