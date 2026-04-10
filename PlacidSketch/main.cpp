@@ -9,7 +9,7 @@
  * - XSketch: 可选的第三种算法（基于多项式拟合）
  */
 
-#include "para.h"
+#include "parm.h"
 #include "stage1.h"
 #include "stage2.h"
 #include "stage3.h"

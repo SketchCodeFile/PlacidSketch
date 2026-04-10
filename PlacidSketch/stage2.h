@@ -8,7 +8,7 @@
 #ifndef STAGE2_H
 #define STAGE2_H
 
-#include "para.h"
+#include "parm.h"
 #include "stage3.h"
 #include "MurmurHash3.h"
 

@@ -8,7 +8,7 @@
 #ifndef STAGE1_H
 #define STAGE1_H
 
-#include "para.h"
+#include "parm.h"
 #include "MurmurHash3.h"
 
 #include <cstring>
