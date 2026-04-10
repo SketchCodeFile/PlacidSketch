@@ -21,8 +21,6 @@
 
 using namespace std;
 
-// ============== 数据加载器 ==============
-
 class PacketProcessor {
 private:
     vector<Packet> packets;
@@ -94,7 +92,6 @@ public:
     size_t getWindowCount() const { return csvFiles.size(); }
 };
 
-// ============== PlacidSketch 封装 ==============
 
 class PlacidSketchWrapper {
 private:
@@ -159,7 +156,6 @@ public:
     }
 };
 
-// ============== 测试结果结构 ==============
 
 struct TestResult {
     size_t memory_kb;
@@ -173,14 +169,13 @@ struct TestResult {
     size_t steadyStableFlows;
 };
 
-// ============== 主程序 ==============
 
 int main() {
     cout << "========================================" << endl;
     cout << "  Stable Flow Detection Algorithm Test" << endl;
     cout << "========================================" << endl;
     
-    // 加载数据
+
     PacketProcessor dataLoader;
     string folderPath = "E:/CLionProjects/Merge_Csv/cmake-build-debug/merged_output";
     
@@ -194,7 +189,7 @@ int main() {
     const size_t totalPackets = packets.size();
     cout << "Loaded " << totalPackets << " packets, " << dataLoader.getWindowCount() << " windows" << endl;
 
-    // Ground Truth 计算
+
     GroundTruthBaseline groundTruth;
     for (const auto& packet : packets) {
         string quintuple(packet.quintuple);
@@ -208,7 +203,6 @@ int main() {
     groundTruth.exportResults(groundTruthOutputPath);
     set<string> groundTruthFlows = groundTruth.getStableIDs();
     
-    // 测试配置
     vector<size_t> memoryConfigs = {200, 300, 400, 500, 600};
     vector<TestResult> allResults;
     
@@ -233,8 +227,7 @@ int main() {
         
         TestResult result;
         result.memory_kb = memory_kb;
-        
-        // PlacidSketch 处理
+  
         PlacidSketchWrapper sketch;
         for (size_t i = 0; i < totalPackets; ++i) {
             sketch.processPacket(packets[i]);
@@ -243,8 +236,7 @@ int main() {
         sketch.buildFingerprintMapping(packets);
         Stage3Merger& stage3 = sketch.getStage3();
         result.placidStableFlows = sketch.getStableFlowCount();
-        
-        // SteadySketch 处理
+  
         SteadySketch steadySketch(steady::DefaultHashSeed);
         for (const auto& packet : packets) {
             steadySketch.Insert(packet.flowID, packet.windowNumber, packet.quintuple);
@@ -258,8 +250,7 @@ int main() {
         }
         set<string> steadyFlows = steadySketch.convertFingerprintsToQuintuples(steadyFingerprints);
         result.steadyStableFlows = steadyFlows.size();
-        
-        // 计算精确率和召回率
+
         auto placidFingerprints = stage3.getStableFlowIDs();
         auto placidFlows = sketch.convertFingerprintsToQuintuples(placidFingerprints);
 
@@ -307,8 +298,7 @@ int main() {
         
         allResults.push_back(result);
     }
-    
-    // 输出汇总表格
+
     cout << "\n========== Summary Table ==========" << endl;
     cout << left << setw(10) << "Memory(KB)" 
               << setw(20) << "Algorithm" 
