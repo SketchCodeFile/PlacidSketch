@@ -1,9 +1,4 @@
-/**
- * @file SteadySketch.h
- * @brief SteadySketch 算法实现
- * 
- * 基于方差检测的稳定流识别算法
- */
+
 
 #ifndef STEADY_SKETCH_H
 #define STEADY_SKETCH_H
