@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <cstring>
 
-constexpr int KEY_LEN = 16;
+constexpr int KEY_LEN = 8;
 
 constexpr int KEY_LEN1 = 128;
 
