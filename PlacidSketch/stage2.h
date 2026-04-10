@@ -1,9 +1,3 @@
-/**
- * @file stage2.h
- * @brief Stage2: 监视器
- * 
- * Stage2 使用指纹过滤器检测稳定子流，进行计数器管理和重生判定
- */
 
 #ifndef STAGE2_H
 #define STAGE2_H
@@ -22,7 +16,6 @@
 #include <string>
 #include <vector>
 
-// Stage2 桶结构
 struct Stage2Bucket {
     std::array<uint8_t, SUBFLOW_WINDOWS + 1> cx{};
     uint8_t initialized_flags = 0;
@@ -100,7 +93,6 @@ struct Stage2Bucket {
     }
 };
 
-// Stage2Monitor: 大小为 r × z 的二维数组
 class Stage2Monitor {
 private:
     std::vector<std::vector<Stage2Bucket>> buckets;
