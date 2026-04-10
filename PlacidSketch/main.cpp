@@ -1,13 +1,3 @@
-/**
- * @file main.cpp
- * @brief 稳定流检测算法比较程序
- * 
- * 整合了多种Sketch算法进行稳定流检测：
- * - PlacidSketch: 基于三阶段过滤的稳定流检测
- * - SteadySketch: 基于方差的稳定流识别
- * - GroundTruthBaseline: 基准算法
- * - XSketch: 可选的第三种算法（基于多项式拟合）
- */
 
 #include "parm.h"
 #include "stage1.h"
