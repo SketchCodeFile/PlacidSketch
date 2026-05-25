@@ -1,3 +1,0 @@
-E:/CLionProjects/XSKetch/cmake-build-debug/CMakeFiles/XSketch.dir
-E:/CLionProjects/XSKetch/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/CLionProjects/XSKetch/cmake-build-debug/CMakeFiles/rebuild_cache.dir
